@@ -50,6 +50,10 @@ type_name:
     warning: 1
     error: 1
   validates_start_with_lowercase: off
+nesting:
+  type_level:
+    warning: 3
+    error: 5
 analyzer_rules:
   - unused_declaration
   - capture_variable

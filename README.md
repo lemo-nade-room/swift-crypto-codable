@@ -69,8 +69,8 @@ struct Event: Hashable, Codable, Sendable {
 import CryptoCodable
 import Foundation
 
-let jsonData: Data = CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {
-    JSONEncoder().encode(event)
+let jsonData: Data = try CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {
+    try JSONEncoder().encode(event)
 }
 ```
 
@@ -82,8 +82,8 @@ let jsonData: Data = CryptoConfigContainer.$key.withValue(.init(size: .bits256))
 import CryptoCodable
 import Foundation
 
-let event: Event = CryptoConfigContainer.$key.withValue(key) {
-    JSONDecoder().decode(Event.self, from: encrypted)
+let event: Event = try CryptoConfigContainer.$key.withValue(key) {
+    try JSONDecoder().decode(Event.self, from: encrypted)
 }
 ```
 

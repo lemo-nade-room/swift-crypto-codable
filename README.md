@@ -89,7 +89,7 @@ let event: Event = CryptoConfigContainer.$key.withValue(key) {
 ## 暗号鍵が設定されていない場合
 暗号鍵が設定されていない場合、プロパティには`nil`が設定されますが、デコード自体は成功します。
 
-- 暗号鍵が異なる場合には、`DecryptAuthenticationFailure`エラーが発生します。
+- 暗号鍵が異なる場合には、`DecryptFailure`エラーが発生します。
 
 ## ライセンス
 このライブラリはMITライセンスで提供されています。詳細は[LICENSE](./LICENSE)ファイルをご覧ください。

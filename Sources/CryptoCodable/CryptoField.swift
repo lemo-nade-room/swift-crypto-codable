@@ -55,7 +55,7 @@ import Foundation
 ///
 /// 暗号鍵が存在しない場合、プロパティにnilが設定され、デコード自体は成功します。
 ///
-/// - throws: `DecryptAuthenticationFailure` 暗号鍵が異なる場合
+/// - throws: `DecryptFailure` 暗号鍵が異なる場合
 ///
 @propertyWrapper
 public struct CryptoField<T>: Codable, Sendable, Hashable where T: Sendable & Codable & Hashable {
@@ -81,7 +81,7 @@ public struct CryptoField<T>: Codable, Sendable, Hashable where T: Sendable & Co
         do {
             plainData = try AES.GCM.open(.init(combined: cipherData), using: key)
         } catch CryptoKitError.authenticationFailure, CryptoKitError.underlyingCoreCryptoError(error: _) {
-            throw DecryptAuthenticationFailure()
+            throw DecryptFailure()
         }
         wrappedValue = try CryptoConfigContainer.decoder.decode(T.self, from: plainData)
     }
@@ -109,4 +109,4 @@ public struct EncryptIllegalSizeNounceError: Error, Hashable, Codable, Sendable 
 /// デコード（復号）時にCryptoFieldプロパティが復号に失敗した際に投げられるエラー
 ///
 /// 暗号鍵が誤っている場合に投げられる
-public struct DecryptAuthenticationFailure: Error, Hashable, Codable, Sendable {}
+public struct DecryptFailure: Error, Hashable, Codable, Sendable {}

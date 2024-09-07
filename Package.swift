@@ -1,30 +1,51 @@
 // swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+import Foundation
 import PackageDescription
 
 let package = Package(
     name: "crypto-codable",
+    platforms: [.macOS(.v12)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "CryptoCodable",
-            targets: ["CryptoCodable"]),
+            targets: ["CryptoCodable"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.0.0"),
+        .package(url: "https://github.com/realm/SwiftLint.git", branch: "main"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CryptoCodable"),
+            name: "CryptoCodable",
+            plugins: swiftLintPlugins
+        ),
         .testTarget(
             name: "CryptoCodableTests",
             dependencies: [
                 "CryptoCodable",
                 .product(name: "Testing", package: "swift-testing"),
-            ]),
+            ],
+            plugins: swiftLintPlugins
+        ),
     ]
 )
+
+var swiftLintPlugins: [Target.PluginUsage] {
+    guard Environment.enableSwiftLint else { return [] }
+    return [
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
+    ]
+}
+
+enum Environment {
+    static func get(_ key: String) -> String? {
+        ProcessInfo.processInfo.environment[key]
+    }
+    static var enableSwiftLint: Bool {
+        Self.get("SWIFTLINT") == "true"
+    }
+}

@@ -23,18 +23,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
         with:
-          key: swift-build-package-resolved-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('api/Package.resolved') }}
+          key: swift-build-package-resolved-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Package.resolved') }}
           path: .build
 
       - uses: swift-actions/setup-swift@v2
 
-      - name: Build DocC for EventProducer
+      - name: Build DocC
         run: |
           swift package --allow-writing-to-directory ./docs \
             generate-documentation --target CryptoCodable \
             --disable-indexing \
             --transform-for-static-hosting \
-            --hosting-base-path swift-crypto-codable/CryptoCodable \
+            --hosting-base-path swift-crypto-codable \
             --output-path ./docs
 
       - name: Upload artifact

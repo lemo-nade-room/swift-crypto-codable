@@ -2,6 +2,11 @@
 
 `CryptoCodable`は、Appleの`swift-crypto`を使用してJSONエンコード時にAES-GCMでプロパティを暗号化するためのSwiftライブラリです。このライブラリは、`Sendable`対応であると同時に、`Codable`、`Hashable`にも準拠したプロパティを保護し、復号もシンプルに行えるように設計されています。
 
+## サポート
+
+- macOS >= 13
+- 6.0 > Swift >= 5.10
+
 ## 特徴
 - AES-GCMでJSONプロパティを暗号化・復号
 - 暗号化対象のプロパティは`Sendable`、`Codable`、および`Hashable`に準拠

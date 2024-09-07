@@ -9,7 +9,7 @@
     <a href="LICENSE">
         <img src="https://design.vapor.codes/images/mitlicense.svg" alt="MIT License">
     </a>
-    <a href="https://github.com/lemo-nade-room/swift-crypto-codable/actions/workflows/test.yml">
+    <a href="https://github.com/lemo-nade-room/swift-crypto-codable/actions/workflows/test.yaml">
         <img src="https://img.shields.io/github/actions/workflow/status/lemo-nade-room/swift-crypto-codable/test.yaml?branch=main&style=plastic&logo=github&label=tests&logoColor=%23ccc" alt="Continuous Integration">
     </a>
     <a href="https://swift.org">

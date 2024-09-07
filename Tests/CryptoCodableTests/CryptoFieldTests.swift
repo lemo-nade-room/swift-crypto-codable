@@ -81,7 +81,7 @@ import Testing
         }
 
         // Act & Assert
-        #expect(throws: DecryptAuthenticationFailure.self) {
+        #expect(throws: DecryptFailure.self) {
             try CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {
                 try JSONDecoder().decode(Event.self, from: encrypted)
             }

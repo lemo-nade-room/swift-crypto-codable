@@ -6,7 +6,12 @@ public struct CryptoConfigContainer: Sendable {
     /// CryptoFieldのエンコード/デコード時に使用する暗号鍵
     ///
     /// 暗号化・復号時に事前にセットする必要がある
+    ///
     /// ```swift
+    /// import Crypto
+    /// import CryptoCodable
+    /// import Foundation
+    ///
     /// let key = SymmetricKey(size: .bits256)
     /// CryptoKeyContainer.$key.withValue(key) {
     ///   // エンコード

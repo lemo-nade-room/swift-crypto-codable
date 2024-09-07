@@ -12,5 +12,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          key: swift-build-package-resolved-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('api/Package.resolved') }}
+          path: .build
       - uses: swift-actions/setup-swift@v2
       - run: swift test

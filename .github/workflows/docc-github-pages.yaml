@@ -34,7 +34,7 @@ jobs:
             generate-documentation --target CryptoCodable \
             --disable-indexing \
             --transform-for-static-hosting \
-            --hosting-base-path swift-crypto-codable/CryptoCodable \
+            --hosting-base-path swift-crypto-codable \
             --output-path ./docs
 
       - name: Upload artifact

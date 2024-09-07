@@ -1,7 +1,7 @@
 import XCTest
-@testable import crypto_codable
+@testable import CryptoCodable
 
-final class crypto_codableTests: XCTestCase {
+final class CryptoCodableTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest

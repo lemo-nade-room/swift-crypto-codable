@@ -1,4 +1,4 @@
-name: SwiftLint
+name: Swift Test
 
 on:
   pull_request:

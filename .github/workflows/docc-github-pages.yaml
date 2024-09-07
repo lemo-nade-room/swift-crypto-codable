@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Sources/**/*.swift'
+      - 'Sources/**.swift'
       - ".github/workflows/docc-github-pages.yaml"
 
 concurrency:

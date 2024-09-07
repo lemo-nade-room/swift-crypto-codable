@@ -1,4 +1,4 @@
-import Crypto
+@preconcurrency import Crypto
 import Foundation
 
 /// 暗号鍵等の設定を保持するための名前空間

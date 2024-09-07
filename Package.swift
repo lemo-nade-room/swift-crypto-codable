@@ -6,7 +6,7 @@ import PackageDescription
 
 let package = Package(
     name: "crypto-codable",
-    platforms: [.macOS(.v12)],
+    platforms: [.macOS(.v13)],
     products: [
         .library(
             name: "CryptoCodable",
@@ -25,6 +25,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto"),
             ],
+            swiftSettings: swiftSettings,
             plugins: swiftLintPlugins
         ),
         .testTarget(
@@ -33,10 +34,16 @@ let package = Package(
                 "CryptoCodable",
                 .product(name: "Testing", package: "swift-testing"),
             ],
+            swiftSettings: swiftSettings,
             plugins: swiftLintPlugins
         ),
     ]
 )
+
+var swiftSettings: [SwiftSetting] { [
+    .enableUpcomingFeature("DisableOutwardActorInference"),
+    .enableExperimentalFeature("StrictConcurrency"),
+] }
 
 var swiftLintPlugins: [Target.PluginUsage] {
     guard Environment.enableSwiftLint else { return [] }

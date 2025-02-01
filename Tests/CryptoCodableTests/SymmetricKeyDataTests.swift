@@ -5,7 +5,7 @@ import Testing
 
 @Suite struct SymmetricKeyDataTests {
     struct Content: Hashable, Codable, Sendable {
-        @CryptoField var value: String?
+        @OptionalCryptoField var value: String?
     }
 
     @Test func Dataに一度変換したもので復号可能() throws {

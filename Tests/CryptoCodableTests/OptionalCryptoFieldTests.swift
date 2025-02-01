@@ -3,11 +3,11 @@ import CryptoCodable
 import Foundation
 import Testing
 
-@Suite struct CryptoFieldTests {
+@Suite struct OptionalCryptoFieldTests {
     struct Event: Hashable, Codable, Sendable {
         var id: UUID
         var 職業: String
-        @CryptoField var 個人情報: Self.個人情報?
+        @OptionalCryptoField var 個人情報: Self.個人情報?
         struct 個人情報: Hashable, Codable, Sendable {
             var 氏名: String
             var 誕生日: Date

@@ -24,16 +24,14 @@ let package = Package(
             dependencies: [
                 .product(name: "Crypto", package: "swift-crypto")
             ],
-            swiftSettings: swiftSettings,
-            plugins: swiftLintPlugins
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "CryptoCodableTests",
             dependencies: [
                 "CryptoCodable"
             ],
-            swiftSettings: swiftSettings,
-            plugins: swiftLintPlugins
+            swiftSettings: swiftSettings
         ),
     ],
     swiftLanguageModes: [.v6]
@@ -43,20 +41,4 @@ var swiftSettings: [SwiftSetting] {
     [
         .enableExperimentalFeature("StrictConcurrency")
     ]
-}
-
-var swiftLintPlugins: [Target.PluginUsage] {
-    guard Environment.enableSwiftLint else { return [] }
-    return [
-        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
-    ]
-}
-
-enum Environment {
-    static func get(_ key: String) -> String? {
-        ProcessInfo.processInfo.environment[key]
-    }
-    static var enableSwiftLint: Bool {
-        Self.get("SWIFTLINT") == "true"
-    }
 }

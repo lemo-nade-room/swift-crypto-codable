@@ -80,7 +80,9 @@ public struct CryptoField<T>: Codable, Sendable, Hashable where T: Sendable & Co
         let plainData: Data
         do {
             plainData = try AES.GCM.open(.init(combined: cipherData), using: key)
-        } catch CryptoKitError.authenticationFailure, CryptoKitError.underlyingCoreCryptoError(error: _) {
+        } catch CryptoKitError.authenticationFailure, CryptoKitError.underlyingCoreCryptoError(
+            error: _)
+        {
             throw DecryptFailure()
         }
         wrappedValue = try CryptoConfigContainer.decoder.decode(T.self, from: plainData)

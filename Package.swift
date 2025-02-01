@@ -11,7 +11,7 @@ let package = Package(
         .library(
             name: "CryptoCodable",
             targets: ["CryptoCodable"]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
@@ -23,7 +23,7 @@ let package = Package(
         .target(
             name: "CryptoCodable",
             dependencies: [
-                .product(name: "Crypto", package: "swift-crypto"),
+                .product(name: "Crypto", package: "swift-crypto")
             ],
             swiftSettings: swiftSettings,
             plugins: swiftLintPlugins
@@ -40,10 +40,12 @@ let package = Package(
     ]
 )
 
-var swiftSettings: [SwiftSetting] { [
-    .enableUpcomingFeature("DisableOutwardActorInference"),
-    .enableExperimentalFeature("StrictConcurrency"),
-] }
+var swiftSettings: [SwiftSetting] {
+    [
+        .enableUpcomingFeature("DisableOutwardActorInference"),
+        .enableExperimentalFeature("StrictConcurrency"),
+    ]
+}
 
 var swiftLintPlugins: [Target.PluginUsage] {
     guard Environment.enableSwiftLint else { return [] }

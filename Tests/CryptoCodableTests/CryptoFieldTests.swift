@@ -1,4 +1,4 @@
-import Crypto
+@preconcurrency import Crypto
 import CryptoCodable
 import Foundation
 import Testing
@@ -57,11 +57,13 @@ import Testing
         let decrypted = try JSONDecoder().decode(Event.self, from: encrypted)
 
         // Assert
-        #expect(decrypted == .init(
-            id: UUID(uuidString: "C09B74E3-1BEF-4F34-994C-FAE04390FBA8")!,
-            職業: "暗号専門家",
-            個人情報: nil
-        ))
+        #expect(
+            decrypted
+                == .init(
+                    id: UUID(uuidString: "C09B74E3-1BEF-4F34-994C-FAE04390FBA8")!,
+                    職業: "暗号専門家",
+                    個人情報: nil
+                ))
     }
 
     @Test func 異なる鍵でデコードするとエラーが投げられる() throws {

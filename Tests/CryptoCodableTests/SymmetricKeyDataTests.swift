@@ -1,4 +1,4 @@
-import Crypto
+@preconcurrency import Crypto
 import CryptoCodable
 import Foundation
 import Testing

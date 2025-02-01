@@ -1,4 +1,4 @@
-// swift-tools-version: 5.10
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import Foundation
@@ -11,10 +11,9 @@ let package = Package(
         .library(
             name: "CryptoCodable",
             targets: ["CryptoCodable"]
-        ),
+        )
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-testing.git", from: "0.10.0"),
         .package(url: "https://github.com/swiftlang/swift-docc-plugin.git", from: "1.0.0"),
         .package(url: "https://github.com/realm/SwiftLint.git", branch: "main"),
         .package(url: "https://github.com/apple/swift-crypto.git", from: "3.0.0"),
@@ -23,7 +22,7 @@ let package = Package(
         .target(
             name: "CryptoCodable",
             dependencies: [
-                .product(name: "Crypto", package: "swift-crypto"),
+                .product(name: "Crypto", package: "swift-crypto")
             ],
             swiftSettings: swiftSettings,
             plugins: swiftLintPlugins
@@ -31,19 +30,20 @@ let package = Package(
         .testTarget(
             name: "CryptoCodableTests",
             dependencies: [
-                "CryptoCodable",
-                .product(name: "Testing", package: "swift-testing"),
+                "CryptoCodable"
             ],
             swiftSettings: swiftSettings,
             plugins: swiftLintPlugins
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
 
-var swiftSettings: [SwiftSetting] { [
-    .enableUpcomingFeature("DisableOutwardActorInference"),
-    .enableExperimentalFeature("StrictConcurrency"),
-] }
+var swiftSettings: [SwiftSetting] {
+    [
+        .enableExperimentalFeature("StrictConcurrency")
+    ]
+}
 
 var swiftLintPlugins: [Target.PluginUsage] {
     guard Environment.enableSwiftLint else { return [] }

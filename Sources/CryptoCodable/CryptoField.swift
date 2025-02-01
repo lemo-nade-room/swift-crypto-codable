@@ -5,20 +5,21 @@ import Foundation
 ///
 /// ## 使用方法
 ///
-/// 1. CryptoFieldプロパティラッパーを使ったCodableな型を定義する
+/// 1. ``CryptoField``プロパティラッパーを使った``Codable``な型を定義する
 ///
 /// ```swift
 /// import CryptoCodable
 /// import Foundation
 ///
 /// struct Event: Hashable, Codable, Sendable {
-///   var id: UUID
-///   @CryptoField var 個人情報: Self.個人情報?
-///   struct 個人情報: Hashable, Codable, Sendable {
-///       var 氏名: String
-///       var 誕生日: Date
-///       var 年齢: Int
-///   }
+///     var id: UUID
+///     var 職業: String
+///     @CryptoField var 氏名: String
+///     @CryptoField var LINEやってる: Bool
+///     @CryptoField var 誕生日: Date
+///     @CryptoField var 年齢: Int
+///     @CryptoField var 身長: Double
+///     @CryptoField var 体重: Double?
 /// }
 /// ```
 ///
@@ -48,20 +49,21 @@ import Foundation
 ///
 /// ## 暗号化可能なプロパティの条件
 ///
-/// - プロパティの型はSendable, Codable, Hashbleに準拠している
-/// - プロパティはOptional型である
+/// - プロパティの型は``Sendable``, ``CryptoFieldable``に準拠している
+/// - Int, String, Double, Bool, Date, Optional型はデフォルトで``CryptoFieldable``準拠している
 ///
 /// ## 暗号鍵が設定されていない場合
 ///
-/// 暗号鍵が存在しない場合、プロパティにnilが設定され、デコード自体は成功します。
+/// 暗号鍵が存在しない場合、プロパティにonLostKeyValue値が設定され、デコード自体は成功します。
 ///
-/// - throws: `DecryptFailure` 暗号鍵が異なる場合
+/// - throws: ``DecryptFailure`` 暗号鍵が異なる場合
 ///
 @propertyWrapper
-public struct CryptoField<T>: Codable, Sendable, Hashable where T: Sendable & Codable & Hashable {
-    public var wrappedValue: T?
+public struct CryptoField<T>: Codable, Sendable, Hashable
+where T: Sendable & Codable & Hashable & CryptoFieldable {
+    public var wrappedValue: T
 
-    public init(wrappedValue: T?) {
+    public init(wrappedValue: T) {
         self.wrappedValue = wrappedValue
     }
 
@@ -72,7 +74,7 @@ public struct CryptoField<T>: Codable, Sendable, Hashable where T: Sendable & Co
 
     public init(from decoder: any Decoder) throws {
         guard let key = CryptoConfigContainer.key else {
-            wrappedValue = nil
+            wrappedValue = T.onLostKeyValue
             return
         }
         let container = try decoder.singleValueContainer()

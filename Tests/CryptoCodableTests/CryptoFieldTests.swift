@@ -7,12 +7,12 @@ import Testing
     struct Event: Hashable, Codable, Sendable {
         var id: UUID
         var 職業: String
-        @CryptoField var 個人情報: Self.個人情報?
-        struct 個人情報: Hashable, Codable, Sendable {
-            var 氏名: String
-            var 誕生日: Date
-            var 年齢: Int
-        }
+        @CryptoField var 氏名: String
+        @CryptoField var LINEやってる: Bool
+        @CryptoField var 誕生日: Date
+        @CryptoField var 年齢: Int
+        @CryptoField var 身長: Double
+        @CryptoField var 体重: Double?
     }
 
     @Test func 暗号化・復号できる() throws {
@@ -20,11 +20,12 @@ import Testing
         let event = Event(
             id: UUID(),
             職業: "暗号専門家",
-            個人情報: .init(
-                氏名: "アリス",
-                誕生日: Date(timeIntervalSince1970: 54),
-                年齢: 777
-            )
+            氏名: "佐藤",
+            LINEやってる: true,
+            誕生日: ISO8601DateFormatter().date(from: "2001-06-01T00:00:00Z")!,
+            年齢: 24,
+            身長: 168.3,
+            体重: 32.5
         )
 
         try CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {
@@ -37,16 +38,17 @@ import Testing
         }
     }
 
-    @Test func 鍵が存在しない場合にデコードするとnilが入る() throws {
+    @Test func 鍵が存在しない場合にデコードするとonLostKeyValue値が入る() throws {
         // Arrange
         let event = Event(
-            id: UUID(uuidString: "C09B74E3-1BEF-4F34-994C-FAE04390FBA8")!,
+            id: UUID(),
             職業: "暗号専門家",
-            個人情報: .init(
-                氏名: "アリス",
-                誕生日: Date(timeIntervalSince1970: 54),
-                年齢: 777
-            )
+            氏名: "佐藤",
+            LINEやってる: true,
+            誕生日: ISO8601DateFormatter().date(from: "2001-06-01T00:00:00Z")!,
+            年齢: 24,
+            身長: 168.3,
+            体重: 32.5
         )
 
         let encrypted = try CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {
@@ -59,23 +61,30 @@ import Testing
         // Assert
         #expect(
             decrypted
-                == .init(
-                    id: UUID(uuidString: "C09B74E3-1BEF-4F34-994C-FAE04390FBA8")!,
+                == Event(
+                    id: event.id,
                     職業: "暗号専門家",
-                    個人情報: nil
-                ))
+                    氏名: "Lost",
+                    LINEやってる: false,
+                    誕生日: Date(timeIntervalSince1970: 0),
+                    年齢: 1,
+                    身長: 1,
+                    体重: nil
+                )
+        )
     }
 
     @Test func 異なる鍵でデコードするとエラーが投げられる() throws {
         // Arrange
         let event = Event(
-            id: UUID(uuidString: "C09B74E3-1BEF-4F34-994C-FAE04390FBA8")!,
+            id: UUID(),
             職業: "暗号専門家",
-            個人情報: .init(
-                氏名: "アリス",
-                誕生日: Date(timeIntervalSince1970: 54),
-                年齢: 777
-            )
+            氏名: "佐藤",
+            LINEやってる: true,
+            誕生日: ISO8601DateFormatter().date(from: "2001-06-01T00:00:00Z")!,
+            年齢: 24,
+            身長: 168.3,
+            体重: 32.5
         )
 
         let encrypted = try CryptoConfigContainer.$key.withValue(.init(size: .bits256)) {

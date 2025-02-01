@@ -20,12 +20,11 @@
 ## サポート
 
 - macOS >= 13
-- 6.0 > Swift >= 5.10
+- Swift >= 6.0
 
 ## 特徴
 - AES-GCMでJSONプロパティを暗号化・復号
-- 暗号化対象のプロパティは`Sendable`、`Codable`、および`Hashable`に準拠
-- 暗号化対象プロパティは`Optional`型である必要がある
+- 暗号化対象のプロパティは`Sendable`、`CryptoFieldable`に準拠している必要がある
 
 ## インストール
 
@@ -67,12 +66,13 @@ import Foundation
 
 struct Event: Hashable, Codable, Sendable {
     var id: UUID
-    @CryptoField var 個人情報: Self.個人情報?
-    struct 個人情報: Hashable, Codable, Sendable {
-        var 氏名: String
-        var 誕生日: Date
-        var 年齢: Int
-    }
+    var 職業: String
+    @CryptoField var 氏名: String
+    @CryptoField var LINEやってる: Bool
+    @CryptoField var 誕生日: Date
+    @CryptoField var 年齢: Int
+    @CryptoField var 身長: Double
+    @CryptoField var 体重: Double?
 }
 ```
 
@@ -103,8 +103,8 @@ let event: Event = try CryptoConfigContainer.$key.withValue(key) {
 ```
 
 ## 暗号化可能なプロパティの条件
-- プロパティの型は`Sendable`、`Codable`、`Hashable`に準拠している必要があります。
-- プロパティは`Optional`型である必要があります。
+- プロパティの型は`Sendable`と`CryptoFieldable`に準拠している必要があります。
+- Int, String, Double, Bool, Date, Optional型はデフォルトで準拠している
 
 ## 暗号鍵が設定されていない場合
 暗号鍵が設定されていない場合、プロパティには`nil`が設定されますが、デコード自体は成功します。

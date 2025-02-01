@@ -3,7 +3,7 @@ import Foundation
 
 /// 暗号鍵等の設定を保持するための名前空間
 public struct CryptoConfigContainer: Sendable {
-    /// CryptoFieldのエンコード/デコード時に使用する暗号鍵
+    /// ``CryptoField``のエンコード/デコード時に使用する暗号鍵
     ///
     /// 暗号化・復号時に事前にセットする必要がある
     ///

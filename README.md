@@ -9,11 +9,11 @@
     <a href="LICENSE">
         <img src="https://design.vapor.codes/images/mitlicense.svg" alt="MIT License">
     </a>
-    <a href="https://github.com/lemo-nade-room/swift-crypto-codable/actions/workflows/test.yaml">
-        <img src="https://img.shields.io/github/actions/workflow/status/lemo-nade-room/swift-crypto-codable/test.yaml?branch=main&style=plastic&logo=github&label=tests&logoColor=%23ccc" alt="Continuous Integration">
+    <a href="https://github.com/lemo-nade-room/swift-crypto-codable/actions/workflows/ci.yaml">
+        <img src="https://github.com/lemo-nade-room/swift-crypto-codable/actions/workflows/ci.yaml/badge.svg" alt="Testing Status">
     </a>
     <a href="https://swift.org">
-        <img src="https://design.vapor.codes/images/swift510up.svg" alt="Swift 5.10+">
+        <img src="https://design.vapor.codes/images/swift60up.svg" alt="Swift 6.0+">
     </a>
 </p>
 

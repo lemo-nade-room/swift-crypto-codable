@@ -2,7 +2,7 @@ import Crypto
 import Foundation
 
 extension SymmetricKey {
-    /// `SymmetricKey`を`Data`に変換する
+    /// ``SymmetricKey``を``Data``に変換する
     ///
     /// この`Data`を保存することで後から再度デコード・復号することが可能
     ///
@@ -14,7 +14,7 @@ extension SymmetricKey {
     /// let data = key.data // このデータを永続化する
     /// ```
     ///
-    /// dataは標準イニシャライザで`SymmetricKey`に戻すことができる
+    /// dataは標準イニシャライザで``SymmetricKey``に戻すことができる
     ///
     /// ```swift
     /// import Crypto

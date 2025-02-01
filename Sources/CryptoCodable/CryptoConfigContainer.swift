@@ -3,7 +3,7 @@ import Foundation
 
 /// 暗号鍵等の設定を保持するための名前空間
 public struct CryptoConfigContainer: Sendable {
-    /// OptionalCryptoFieldのエンコード/デコード時に使用する暗号鍵
+    /// ``CryptoField``のエンコード/デコード時に使用する暗号鍵
     ///
     /// 暗号化・復号時に事前にセットする必要がある
     ///
@@ -25,12 +25,12 @@ public struct CryptoConfigContainer: Sendable {
     /// ```
     @TaskLocal public static var key: SymmetricKey?
 
-    /// OptionalCryptoFieldのエンコード/デコード時に使用するJSONEncoder
+    /// CryptoFieldのエンコード/デコード時に使用するJSONEncoder
     ///
     /// カスタマイズしたい場合のみ設定が必要
     @TaskLocal public static var encoder: JSONEncoder = .init()
 
-    /// OptionalCryptoFieldのエンコード/デコード時に使用するJSONDecoder
+    /// CryptoFieldのエンコード/デコード時に使用するJSONDecoder
     ///
     /// カスタマイズしたい場合のみ設定が必要
     @TaskLocal public static var decoder: JSONDecoder = .init()

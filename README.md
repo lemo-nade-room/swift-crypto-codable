@@ -41,7 +41,7 @@ let package = Package(
         .target(
             name: "YourApp",
             dependencies: [
-                .product(name: "CryptoCodable", package: "crypto-codable"),
+                .product(name: "CryptoCodable", package: "swift-crypto-codable"),
             ]
         ),
         ...
